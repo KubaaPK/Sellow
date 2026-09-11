@@ -73,4 +73,4 @@ jobs:
         run: pnpm build
 
       - name: Test
-        run: pnpm test -- --watch=false
+        run: pnpm test --watch=false
