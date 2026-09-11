@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.eol": "\n",
+  "js/ts.implicitProjectConfig.checkJs": false,
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
+}
