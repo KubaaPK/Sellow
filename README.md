@@ -14,7 +14,7 @@ The planned functionality includes:
 - **Backend:** .NET
 - **Frontend:** Angular
 
-Other technology choices will be documented as development progressses.
+Other technology choices will be documented as development progresses.
 
 ## Project Status
 
@@ -25,3 +25,7 @@ The project is in the initial requirements and planning stage. No working applic
 Sellow is a solo portfolio project focused on building and delivering a complete full-stack application.
 
 The project aims to demonstrate practical skills in software design, implementation, testing, and deployment, while leaving room for a future public release.
+
+## Documentation
+
+- [Product definition](docs/product.md)
