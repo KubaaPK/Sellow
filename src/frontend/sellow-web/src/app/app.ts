@@ -1,13 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button'
 
 @Component({
-  imports: [RouterOutlet, HlmButtonImports],
+  imports: [HlmButtonImports],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('sellow-web');
 }

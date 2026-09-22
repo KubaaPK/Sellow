@@ -18,7 +18,7 @@ Other technology choices will be documented as development progresses.
 
 ## Project Status
 
-The project is in the initial requirements and planning stage. No working application is available yet. The features listed above are planned.
+The backend and frontend application skeletons run locally. Marketplace features, authentication, and database integration are not implemented yet.
 
 ## Project Goals
 
