@@ -1,0 +1,19 @@
+# .NET
+**/bin/
+**/obj/
+
+# Angular / Node
+**/node_modules/
+**/dist/
+**/.angular/
+
+# IDE and local user settings
+.vs/
+.idea/
+*.user
+*.suo
+
+# Local secrets
+.env
+.env.*
+!.env.example
