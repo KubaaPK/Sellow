@@ -54,4 +54,18 @@ public sealed class ProgramTests : IClassFixture<ApiWebApplicationFactory>
         Assert.DoesNotContain("InvalidOperationException", body);
         Assert.DoesNotContain(nameof(ThrowingStartupFilter), body);
     }
+
+    [Fact]
+    public async Task GetHealth_Returns200AndHealthyStatus()
+    {
+        // Arrange
+        using var client = _factory.CreateClient();
+
+        // Act
+        using var response = await client.GetAsync("/health");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("Healthy", await response.Content.ReadAsStringAsync());
+    }
 }
