@@ -1,0 +1,57 @@
+﻿using System.Net;
+using System.Text.Json;
+
+namespace Sellow.Api.IntegrationTests;
+
+public sealed class ProgramTests : IClassFixture<ApiWebApplicationFactory>
+{
+    private readonly ApiWebApplicationFactory _factory;
+
+    public ProgramTests(ApiWebApplicationFactory factory)
+    {
+        _factory = factory;
+    }
+
+    [Fact]
+    public async Task GetRoot_Returns200AndGreeting()
+    {
+        // Arrange
+        using var client = _factory.CreateClient();
+
+        // Act
+        using var response = await client.GetAsync("/");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("Hello World!", await response.Content.ReadAsStringAsync());
+    }
+
+    [Fact]
+    public async Task GetThrow_Returns500ProblemDetailsWithoutExceptionDetails()
+    {
+        // Arrange
+        using var client = _factory.CreateClient();
+
+        // Act
+        using var response = await client.GetAsync("/__tests/throw");
+        var body = await response.Content.ReadAsStringAsync();
+
+        // Assert
+        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+        Assert.Equal("application/problem+json", response.Content.Headers.ContentType?.MediaType);
+
+        using var document = JsonDocument.Parse(body);
+        var problem = document.RootElement;
+
+        Assert.Equal(500, problem.GetProperty("status").GetInt32());
+        Assert.Equal("An unexpected error occurred.", problem.GetProperty("title").GetString());
+        Assert.Equal("about:blank", problem.GetProperty("type").GetString());
+
+        Assert.True(problem.TryGetProperty("traceId", out var traceId));
+        Assert.False(string.IsNullOrWhiteSpace(traceId.GetString()));
+
+        Assert.DoesNotContain("Sensitive test exception message.", body);
+        Assert.DoesNotContain("InvalidOperationException", body);
+        Assert.DoesNotContain(nameof(ThrowingStartupFilter), body);
+    }
+}
