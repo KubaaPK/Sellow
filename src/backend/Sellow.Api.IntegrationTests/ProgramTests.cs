@@ -68,4 +68,17 @@ public sealed class ProgramTests : IClassFixture<ApiWebApplicationFactory>
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("Healthy", await response.Content.ReadAsStringAsync());
     }
+    
+    [Fact]
+    public async Task OpenApi_IsNotAvailableOutsideDevelopment()
+    {
+        // Arrange
+        using var client = _factory.CreateClient();
+    
+        // Act
+        using var response = await client.GetAsync("/openapi/v1.json");
+    
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
 }
