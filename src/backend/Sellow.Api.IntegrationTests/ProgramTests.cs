@@ -13,7 +13,21 @@ public sealed class ProgramTests : IClassFixture<ApiWebApplicationFactory>
     }
 
     [Fact]
-    public async Task GetRoot_Returns200AndGreeting()
+    public async Task GetApiV1_Returns200AndGreeting()
+    {
+        // Arrange
+        using var client = _factory.CreateClient();
+
+        // Act
+        using var response = await client.GetAsync("/api/v1");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("Sellow API v1", await response.Content.ReadAsStringAsync());
+    }
+
+    [Fact]
+    public async Task GetRoot_Returns404()
     {
         // Arrange
         using var client = _factory.CreateClient();
@@ -22,10 +36,9 @@ public sealed class ProgramTests : IClassFixture<ApiWebApplicationFactory>
         using var response = await client.GetAsync("/");
 
         // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Equal("Hello World!", await response.Content.ReadAsStringAsync());
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
-
+    
     [Fact]
     public async Task GetThrow_Returns500ProblemDetailsWithoutExceptionDetails()
     {
