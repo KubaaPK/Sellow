@@ -2,9 +2,9 @@ name: Sellow CI
 
 on:
   pull_request:
-    branches: [master]
+    branches: [ master ]
   push:
-    branches: [master]
+    branches: [ master ]
 
 permissions:
   contents: read
@@ -28,6 +28,9 @@ jobs:
 
       - name: Build backend
         run: dotnet build src/backend/Sellow.slnx --configuration Release --no-restore
+
+      - name: Run backend tests
+        run: dotnet test src/backend/Sellow.slnx --configuration Release --no-build
 
   frontend:
     name: Frontend
