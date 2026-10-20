@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Backend/Sellow.Api/Sellow.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Sellow.Api.IntegrationTests/Sellow.Api.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
