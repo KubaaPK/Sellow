@@ -1,15 +1,19 @@
 using Asp.Versioning;
 using Sellow.Api.Configuration;
 using Sellow.Api.Exceptions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
+    .AddApiLogging(builder.Configuration, builder.Environment)
     .AddApiDocumentation()
     .AddApiErrorHandling()
     .AddApiHealthChecks();
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging(options => { options.Logger = app.Services.GetRequiredService<Serilog.ILogger>(); });
 
 app.UseExceptionHandler(new ExceptionHandlerOptions
 {
