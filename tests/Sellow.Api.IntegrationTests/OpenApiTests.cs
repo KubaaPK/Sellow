@@ -12,7 +12,7 @@ public sealed class OpenApiTests
     [InlineData("Production", HttpStatusCode.NotFound)]
     public async Task Document_IsAvailableOnlyInDevelopment(string environment, HttpStatusCode expectedStatus)
     {
-        using var factory = new WebApplicationFactory<Program>()
+        using var factory = new ApiFactory()
             .WithWebHostBuilder(builder => builder.UseEnvironment(environment));
 
         using var client = factory.CreateClient(new WebApplicationFactoryClientOptions

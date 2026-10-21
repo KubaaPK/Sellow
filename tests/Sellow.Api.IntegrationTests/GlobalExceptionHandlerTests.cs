@@ -17,7 +17,7 @@ public sealed class GlobalExceptionHandlerTests
     [InlineData("Production")]
     public async Task UnhandledException_ReturnsSafeProblemDetails(string environment)
     {
-        using var factory = new WebApplicationFactory<Program>()
+        using var factory = new ApiFactory()
             .WithWebHostBuilder(builder =>
             {
                 builder.UseEnvironment(environment);

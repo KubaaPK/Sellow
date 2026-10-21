@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Sellow.Api.IntegrationTests;
 
-public sealed class ApplicationStartupTests(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public sealed class ApplicationStartupTests(ApiFactory factory) : IClassFixture<ApiFactory>
 
 {
     [Fact]

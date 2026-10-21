@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddApiDocumentation()
-    .AddApiErrorHandling();
+    .AddApiErrorHandling()
+    .AddApiHealthChecks();
 
 var app = builder.Build();
 
@@ -26,6 +27,8 @@ var api = app
     .NewVersionedApi()
     .MapGroup("/api/v{version:apiVersion}")
     .HasApiVersion(new ApiVersion(1, 0));
+
+app.MapApiHealthChecks();
 
 app.Run();
 
