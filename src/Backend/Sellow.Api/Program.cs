@@ -1,11 +1,19 @@
 using Asp.Versioning;
 using Sellow.Api.Configuration;
+using Sellow.Api.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApiDocumentation();
+builder.Services
+    .AddApiDocumentation()
+    .AddApiErrorHandling();
 
 var app = builder.Build();
+
+app.UseExceptionHandler(new ExceptionHandlerOptions
+{
+    SuppressDiagnosticsCallback = _ => false
+});
 
 app.UseHttpsRedirection();
 
