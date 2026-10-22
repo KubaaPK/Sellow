@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using Sellow.Api.Authentication;
 using Sellow.Api.Configuration;
 using Sellow.Api.Exceptions;
 using Serilog;
@@ -9,7 +10,8 @@ builder.Services
     .AddApiLogging(builder.Configuration, builder.Environment)
     .AddApiDocumentation()
     .AddApiErrorHandling()
-    .AddApiHealthChecks();
+    .AddApiHealthChecks()
+    .AddApiAuthentication();
 
 var app = builder.Build();
 
@@ -20,7 +22,10 @@ app.UseExceptionHandler(new ExceptionHandlerOptions
     SuppressDiagnosticsCallback = _ => false
 });
 
-app.UseHttpsRedirection();
+app
+    .UseHttpsRedirection()
+    .UseAuthentication()
+    .UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {

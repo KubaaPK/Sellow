@@ -16,7 +16,8 @@ public sealed class ApiFactory : WebApplicationFactory<Program>
                     ["ConnectionStrings:Sellow"] =
                         "Host=127.0.0.1;Port=1;Database=sellow_tests;"
                         + "Username=sellow_tests;Password=test-only;"
-                        + "Timeout=1;Command Timeout=1"
+                        + "Timeout=1;Command Timeout=1",
+                    ["Firebase:ProjectId"] = "sellow-tests"
                 });
         });
     }
